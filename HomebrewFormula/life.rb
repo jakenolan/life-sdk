@@ -5,21 +5,21 @@
 class Life < Formula
   desc "Personal knowledge system — markdown in, structured data out"
   homepage "https://github.com/jakenolan/life-sdk"
-  version "0.1.2"
+  version "0.1.3"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/jakenolan/life/releases/download/v0.1.2/life_0.1.2_darwin_amd64.tar.gz"
-      sha256 "4be6bb55b92a7c8711eed852b405e036ef580cc3d3561a2911845de0738eaf12"
+      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.3/life_0.1.3_darwin_amd64.tar.gz"
+      sha256 "6299b415145915f6a69059e56c2316d29565c7597629e307788d9e2bf865076d"
 
       define_method(:install) do
         bin.install "life"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/jakenolan/life/releases/download/v0.1.2/life_0.1.2_darwin_arm64.tar.gz"
-      sha256 "5da91f0890cf80030468e0cb61899b3e5633b395063ed53d90f25ae5ebf6a8bc"
+      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.3/life_0.1.3_darwin_arm64.tar.gz"
+      sha256 "0e3f01e9edad28087f42e656fb96f284bdcc268fcac4c0b643501270c704857a"
 
       define_method(:install) do
         bin.install "life"
@@ -29,15 +29,15 @@ class Life < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/jakenolan/life/releases/download/v0.1.2/life_0.1.2_linux_amd64.tar.gz"
-      sha256 "7a292d9b5d5995a912c21646cf6ec5f8ca2ec67da5b806efe2557a3bf07f42ba"
+      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.3/life_0.1.3_linux_amd64.tar.gz"
+      sha256 "6b98e1d08e048894fa872d0ff14b49b5f9e53ecca246f94f9932d2e4d8cd21e8"
       define_method(:install) do
         bin.install "life"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/jakenolan/life/releases/download/v0.1.2/life_0.1.2_linux_arm64.tar.gz"
-      sha256 "e16f22b47c99f4002ea99c06a6bcaa6aa4bedf15b9cea4eb00d57ddb0e17cca5"
+      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.3/life_0.1.3_linux_arm64.tar.gz"
+      sha256 "7ce5be7f74824d564617a8b7878da5cbb3a7079204cd1ab395fc77d138d0c90b"
       define_method(:install) do
         bin.install "life"
       end
