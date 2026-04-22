@@ -1,0 +1,15 @@
+{
+    "version": "0.1.2",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/jakenolan/life/releases/download/v0.1.2/life_0.1.2_windows_amd64.zip",
+            "bin": [
+                "life.exe"
+            ],
+            "hash": "577fbfa3eaf420adc73ad587c7add786827a78c00420b33c122129b8a31b8613"
+        }
+    },
+    "homepage": "https://github.com/jakenolan/life-sdk",
+    "license": "MIT",
+    "description": "Personal knowledge system — markdown in, structured data out"
+}
