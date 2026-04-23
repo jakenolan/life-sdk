@@ -5,21 +5,21 @@
 class Life < Formula
   desc "Personal knowledge system — markdown in, structured data out"
   homepage "https://github.com/jakenolan/life-sdk"
-  version "0.1.4"
+  version "0.1.5"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.4/life_0.1.4_darwin_amd64.tar.gz"
-      sha256 "0290ac93dc881e33fd77bdb53a1e34ef44b918f53b99f5025f7276458f5c69c9"
+      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.5/life_0.1.5_darwin_amd64.tar.gz"
+      sha256 "231c0fbdd99653623b9db44889c1342274973ee238358614a8032a8dbbe298d9"
 
       define_method(:install) do
         bin.install "life"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.4/life_0.1.4_darwin_arm64.tar.gz"
-      sha256 "5746ca9a381ebe3258f1db78b476686c8e4de5bae4f8953033108b2da3c86ab6"
+      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.5/life_0.1.5_darwin_arm64.tar.gz"
+      sha256 "80fe15466a05b7ed9f072fdae1a0616243016c93da3232f54000cdfe1a055143"
 
       define_method(:install) do
         bin.install "life"
@@ -29,15 +29,15 @@ class Life < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.4/life_0.1.4_linux_amd64.tar.gz"
-      sha256 "5f41d1e1b37170f31c6358c433702ade875a7a56e91447dad1be5f35e5799571"
+      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.5/life_0.1.5_linux_amd64.tar.gz"
+      sha256 "4f1a979e9ecc1390b9d265cf112f9a953effb268d1e981d72cf787487b18e889"
       define_method(:install) do
         bin.install "life"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.4/life_0.1.4_linux_arm64.tar.gz"
-      sha256 "7bdd9fd3e3831d691050b7161fac601c3ed325382174817821bb71b4761b5d42"
+      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.5/life_0.1.5_linux_arm64.tar.gz"
+      sha256 "7c59cda77d8653989f2706e145d3592883cd2a727e28a2a3966357050317e803"
       define_method(:install) do
         bin.install "life"
       end
