@@ -1,12 +1,12 @@
 {
-    "version": "0.1.13",
+    "version": "0.1.14",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/jakenolan/life-sdk/releases/download/v0.1.13/life_0.1.13_windows_amd64.zip",
+            "url": "https://github.com/jakenolan/life-sdk/releases/download/v0.1.14/life_0.1.14_windows_amd64.zip",
             "bin": [
                 "life.exe"
             ],
-            "hash": "e9ffe9fa05bb5cad5c7c6303ac6c1ea6e20626131b71bea2a05df12e47d0e02c"
+            "hash": "fbddc3d80b8e512c61fb89ffdabe33e5bab75063e97cf3400d3af200f6f8b3da"
         }
     },
     "homepage": "https://github.com/jakenolan/life-sdk",
