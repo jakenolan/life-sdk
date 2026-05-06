@@ -1,0 +1,131 @@
+syntax = "proto3";
+package life.v1;
+
+option go_package = "github.com/jakenolan/life-sdk/gen;lifev1";
+
+service LifeService {
+  // Shelf management
+  rpc ShelfAdd       (ShelfAddRequest)       returns (ShelfAddResponse);
+  rpc ShelfRemove    (ShelfRemoveRequest)    returns (ShelfRemoveResponse);
+  rpc ShelfList      (ShelfListRequest)      returns (ShelfListResponse);
+  rpc ShelfConfigGet (ShelfConfigGetRequest) returns (ShelfConfigGetResponse);
+  rpc ShelfConfigSet (ShelfConfigSetRequest) returns (ShelfConfigSetResponse);
+
+  // Library config
+  rpc LibraryConfigGet (LibraryConfigGetRequest) returns (LibraryConfigGetResponse);
+  rpc LibraryConfigSet (LibraryConfigSetRequest) returns (LibraryConfigSetResponse);
+
+  // System
+  rpc Status      (StatusRequest)      returns (StatusResponse);
+  rpc ServiceLogs (ServiceLogsRequest) returns (stream ServiceLogsResponse);
+
+  // Pro plan
+  rpc ProStatus (ProStatusRequest) returns (ProStatusResponse);
+  rpc ProLogin  (ProLoginRequest)  returns (ProLoginResponse);
+}
+
+// -----------------------------------------------------------------------
+// Shelf
+// -----------------------------------------------------------------------
+
+message ShelfAddRequest {
+  string path = 1;
+  string name = 2;
+}
+message ShelfAddResponse {
+  string id    = 1;
+  bool   ok    = 2;
+  string error = 3;
+}
+
+message ShelfRemoveRequest  { string path = 1; }
+message ShelfRemoveResponse { bool ok = 1; string error = 2; }
+
+message ShelfListRequest {}
+message ShelfListResponse { repeated ShelfInfo shelves = 1; }
+
+message ShelfInfo {
+  string id            = 1;
+  string name          = 2;
+  string path          = 3;
+  // field 4 reserved (was: active bool)
+  int32  todo_queued   = 5;
+  int32  note_queued   = 6;
+  string watcher_error = 7;
+  int32  todo_count    = 8;
+  int32  note_count    = 9;
+}
+
+message ShelfConfigGetRequest  { string path = 1; }
+message ShelfConfigGetResponse {
+  string          name               = 1;
+  repeated string allowed_extensions = 2;
+}
+
+message ShelfConfigSetRequest {
+  string path  = 1;
+  string key   = 2;
+  string value = 3;
+}
+message ShelfConfigSetResponse { bool ok = 1; string error = 2; }
+
+// -----------------------------------------------------------------------
+// Library config
+// -----------------------------------------------------------------------
+
+message LibraryConfigGetRequest {}
+message LibraryConfigGetResponse {
+  string name        = 1;
+  string plan        = 2;
+  string user_name   = 3;
+  string user_email  = 4;
+  string config_path = 5;
+}
+
+message LibraryConfigSetRequest  { string key = 1; string value = 2; }
+message LibraryConfigSetResponse { bool ok = 1; string error = 2; }
+
+// -----------------------------------------------------------------------
+// Status
+// -----------------------------------------------------------------------
+
+message StatusRequest {}
+message StatusResponse {
+  string version             = 1;
+  bool   service_running     = 2;
+  string db_status           = 3;
+  string db_type             = 4;
+  // fields 5, 6 reserved (dropped todo_queue_total, note_queue_total)
+  bool   update_available    = 7;
+  string latest_version      = 8;
+  repeated ShelfInfo shelves = 9;
+}
+
+// -----------------------------------------------------------------------
+// Service logs
+// -----------------------------------------------------------------------
+
+message ServiceLogsRequest {
+  int32 lines  = 1;
+  bool  follow = 2;
+}
+message ServiceLogsResponse {
+  string line      = 1;
+  string timestamp = 2;
+  string level     = 3;
+}
+
+// -----------------------------------------------------------------------
+// Pro plan
+// -----------------------------------------------------------------------
+
+message ProStatusRequest {}
+message ProStatusResponse {
+  string plan       = 1;
+  string user_name  = 2;
+  string user_email = 3;
+  string message    = 4;
+}
+
+message ProLoginRequest  { string token = 1; }
+message ProLoginResponse { bool ok = 1; string error = 2; }

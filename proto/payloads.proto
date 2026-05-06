@@ -1,0 +1,113 @@
+syntax = "proto3";
+package life.v1;
+
+import "google/protobuf/struct.proto";
+
+option go_package = "github.com/jakenolan/life-sdk/gen;lifev1";
+
+// -----------------------------------------------------------------------
+// file.changed
+// -----------------------------------------------------------------------
+
+// Emitted by the file watcher when a watched file is created or modified.
+// Consumed by parsers only. Not published to the SDK.
+message FileChangedPayload {
+  string file_path = 1;
+  string shelf_id  = 2;
+}
+
+// -----------------------------------------------------------------------
+// file.deleted
+// -----------------------------------------------------------------------
+
+// Emitted by the file watcher when a watched file is deleted or renamed away.
+// Consumed by stores only. Not published to the SDK.
+// Stores soft-delete all resource records with matching file_path.
+message FileDeletedPayload {
+  string file_path = 1;
+  string shelf_id  = 2;
+}
+
+// -----------------------------------------------------------------------
+// todo.detected / todo.queued
+// -----------------------------------------------------------------------
+
+// Emitted by the todo parser (todo.detected) or queue drainer (todo.queued).
+// Full parsed state of the todo as found in the file.
+// Consumed by the todo store only.
+message TodoDetectedPayload {
+  string shelf_id  = 1;
+  string file_path = 2;
+  string lid       = 3;
+  string title     = 4;
+  string body      = 5;
+  string status    = 6;
+  string due_date  = 7;
+  string due_time  = 8;
+  string priority  = 9;
+  repeated string       tags     = 10;
+  google.protobuf.Value metadata = 11;
+}
+
+// -----------------------------------------------------------------------
+// todo.persisted
+// -----------------------------------------------------------------------
+
+// Emitted by the queue drainer after successfully writing a todo to the DB.
+// Full persisted state including DB-assigned fields.
+// Integration event — plugins subscribe to this.
+message TodoPersistedPayload {
+  string id        = 1;
+  string shelf_id  = 2;
+  string file_path = 3;
+  string lid       = 4;
+  string title     = 5;
+  string body      = 6;
+  string status    = 7;
+  string due_date  = 8;
+  string due_time  = 9;
+  string priority  = 10;
+  repeated string       tags       = 11;
+  google.protobuf.Value metadata   = 12;
+  string                created_at = 13;
+  string                updated_at = 14;
+}
+
+// -----------------------------------------------------------------------
+// note.detected / note.queued
+// -----------------------------------------------------------------------
+
+// Emitted by the note parser (note.detected) or queue drainer (note.queued).
+// Full parsed state of the note as found in the file.
+// Consumed by the note store only.
+message NoteDetectedPayload {
+  string shelf_id  = 1;
+  string file_path = 2;
+  string life_lid  = 3;
+  string title     = 4;
+  string body      = 5;
+  repeated string       tags        = 6;
+  google.protobuf.Value frontmatter = 7;
+  google.protobuf.Value metadata    = 8;
+}
+
+// -----------------------------------------------------------------------
+// note.persisted
+// -----------------------------------------------------------------------
+
+// Emitted by the queue drainer after successfully writing a note to the DB.
+// Full persisted state including DB-assigned fields.
+// Integration event — plugins subscribe to this.
+message NotePersistedPayload {
+  string id        = 1;
+  string shelf_id  = 2;
+  string file_path = 3;
+  string life_lid  = 4;
+  string title     = 5;
+  string body      = 6;
+  repeated string       tags        = 7;
+  google.protobuf.Value frontmatter = 8;
+  google.protobuf.Value metadata    = 9;
+  string                created_at  = 10;
+  string                updated_at  = 11;
+}

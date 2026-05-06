@@ -1,0 +1,14 @@
+syntax = "proto3";
+package life.v1;
+
+option go_package = "github.com/jakenolan/life-sdk/gen;lifev1";
+
+// Origin identifies who emitted the event.
+// The zero value ORIGIN_UNSPECIFIED means unknown/unset and should never
+// appear in a correctly emitted event.
+enum Origin {
+  ORIGIN_UNSPECIFIED = 0;
+  ORIGIN_FILE        = 1;
+  ORIGIN_DB          = 2;
+  ORIGIN_PLUGIN      = 3;
+}
