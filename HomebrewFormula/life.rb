@@ -5,21 +5,21 @@
 class Life < Formula
   desc "Personal knowledge system — markdown in, structured data out"
   homepage "https://github.com/jakenolan/life-sdk"
-  version "0.1.16"
+  version "0.1.17"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.16/life_0.1.16_darwin_amd64.tar.gz"
-      sha256 "f999f309c06c7addda46f532be6d5d7d9a69b3dcf749f890b6639127165a5585"
+      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.17/life_0.1.17_darwin_amd64.tar.gz"
+      sha256 "7034e58ecd0701ad4610dc096e5f5df9ad783af84dfb3212a785a3573aeb0969"
 
       define_method(:install) do
         bin.install "life"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.16/life_0.1.16_darwin_arm64.tar.gz"
-      sha256 "96bf90f51cf5b06ed6c2f385c2963a3fbbc3a4fc8a387b38908816ce2ed998b2"
+      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.17/life_0.1.17_darwin_arm64.tar.gz"
+      sha256 "14c7edf61b9b5edea8dc2aa953cb0f40d413ce7944599aa10b7f9170f9df8656"
 
       define_method(:install) do
         bin.install "life"
@@ -29,19 +29,33 @@ class Life < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.16/life_0.1.16_linux_amd64.tar.gz"
-      sha256 "69bf987fe2f8fd4352805bc9f0f71f7223065a557199df96e395afc16dcafc1f"
+      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.17/life_0.1.17_linux_amd64.tar.gz"
+      sha256 "6279f0cb9d798546aecb0e77a518f7e8a61c0b39a60c1c820ae8524a9e1c9d47"
       define_method(:install) do
         bin.install "life"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.16/life_0.1.16_linux_arm64.tar.gz"
-      sha256 "ce430d3eefac4bba9fa9db443b24ea7b2e4d8a753ec94936280b55edb8ebbea0"
+      url "https://github.com/jakenolan/life-sdk/releases/download/v0.1.17/life_0.1.17_linux_arm64.tar.gz"
+      sha256 "e63c4e34619f6b267d01f3f6641fe4e25dd7bf67480c95320886e9c118a93e67"
       define_method(:install) do
         bin.install "life"
       end
     end
+  end
+
+  def caveats
+    <<~EOS
+      Life Library runs a background service managed by launchd (macOS) or
+      systemd (Linux). Before uninstalling, stop the service to avoid leaving
+      an orphaned registration:
+
+        life service stop
+        brew uninstall life
+
+      Your data (~/.life/, keychain, database) is preserved on uninstall.
+      To also remove your data before uninstalling, run: life reset
+    EOS
   end
 
   test do
