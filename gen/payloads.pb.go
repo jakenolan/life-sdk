@@ -144,7 +144,7 @@ type TodoDetectedPayload struct {
 	Status        string                 `protobuf:"bytes,6,opt,name=status,proto3" json:"status,omitempty"`
 	DueDate       string                 `protobuf:"bytes,7,opt,name=due_date,json=dueDate,proto3" json:"due_date,omitempty"`
 	DueTime       string                 `protobuf:"bytes,8,opt,name=due_time,json=dueTime,proto3" json:"due_time,omitempty"`
-	Priority      string                 `protobuf:"bytes,9,opt,name=priority,proto3" json:"priority,omitempty"`
+	Priority      bool                   `protobuf:"varint,9,opt,name=priority,proto3" json:"priority,omitempty"`
 	Tags          []string               `protobuf:"bytes,10,rep,name=tags,proto3" json:"tags,omitempty"`
 	Metadata      *structpb.Value        `protobuf:"bytes,11,opt,name=metadata,proto3" json:"metadata,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -237,11 +237,11 @@ func (x *TodoDetectedPayload) GetDueTime() string {
 	return ""
 }
 
-func (x *TodoDetectedPayload) GetPriority() string {
+func (x *TodoDetectedPayload) GetPriority() bool {
 	if x != nil {
 		return x.Priority
 	}
-	return ""
+	return false
 }
 
 func (x *TodoDetectedPayload) GetTags() []string {
@@ -272,7 +272,7 @@ type TodoPersistedPayload struct {
 	Status        string                 `protobuf:"bytes,7,opt,name=status,proto3" json:"status,omitempty"`
 	DueDate       string                 `protobuf:"bytes,8,opt,name=due_date,json=dueDate,proto3" json:"due_date,omitempty"`
 	DueTime       string                 `protobuf:"bytes,9,opt,name=due_time,json=dueTime,proto3" json:"due_time,omitempty"`
-	Priority      string                 `protobuf:"bytes,10,opt,name=priority,proto3" json:"priority,omitempty"`
+	Priority      bool                   `protobuf:"varint,10,opt,name=priority,proto3" json:"priority,omitempty"`
 	Tags          []string               `protobuf:"bytes,11,rep,name=tags,proto3" json:"tags,omitempty"`
 	Metadata      *structpb.Value        `protobuf:"bytes,12,opt,name=metadata,proto3" json:"metadata,omitempty"`
 	CreatedAt     string                 `protobuf:"bytes,13,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
@@ -374,11 +374,11 @@ func (x *TodoPersistedPayload) GetDueTime() string {
 	return ""
 }
 
-func (x *TodoPersistedPayload) GetPriority() string {
+func (x *TodoPersistedPayload) GetPriority() bool {
 	if x != nil {
 		return x.Priority
 	}
-	return ""
+	return false
 }
 
 func (x *TodoPersistedPayload) GetTags() []string {
@@ -639,6 +639,84 @@ func (x *NotePersistedPayload) GetUpdatedAt() string {
 	return ""
 }
 
+// Emitted by the todo store after a status update via the IPC TodoStatusUpdate RPC.
+// Consumed by the MarkdownWriter to rewrite the checkbox in the source file.
+type TodoStatusChangedPayload struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Lid           string                 `protobuf:"bytes,2,opt,name=lid,proto3" json:"lid,omitempty"`
+	ShelfId       string                 `protobuf:"bytes,3,opt,name=shelf_id,json=shelfId,proto3" json:"shelf_id,omitempty"`
+	FilePath      string                 `protobuf:"bytes,4,opt,name=file_path,json=filePath,proto3" json:"file_path,omitempty"`
+	Status        string                 `protobuf:"bytes,5,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TodoStatusChangedPayload) Reset() {
+	*x = TodoStatusChangedPayload{}
+	mi := &file_payloads_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TodoStatusChangedPayload) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TodoStatusChangedPayload) ProtoMessage() {}
+
+func (x *TodoStatusChangedPayload) ProtoReflect() protoreflect.Message {
+	mi := &file_payloads_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TodoStatusChangedPayload.ProtoReflect.Descriptor instead.
+func (*TodoStatusChangedPayload) Descriptor() ([]byte, []int) {
+	return file_payloads_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *TodoStatusChangedPayload) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *TodoStatusChangedPayload) GetLid() string {
+	if x != nil {
+		return x.Lid
+	}
+	return ""
+}
+
+func (x *TodoStatusChangedPayload) GetShelfId() string {
+	if x != nil {
+		return x.ShelfId
+	}
+	return ""
+}
+
+func (x *TodoStatusChangedPayload) GetFilePath() string {
+	if x != nil {
+		return x.FilePath
+	}
+	return ""
+}
+
+func (x *TodoStatusChangedPayload) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
 var File_payloads_proto protoreflect.FileDescriptor
 
 const file_payloads_proto_rawDesc = "" +
@@ -659,7 +737,7 @@ const file_payloads_proto_rawDesc = "" +
 	"\x06status\x18\x06 \x01(\tR\x06status\x12\x19\n" +
 	"\bdue_date\x18\a \x01(\tR\adueDate\x12\x19\n" +
 	"\bdue_time\x18\b \x01(\tR\adueTime\x12\x1a\n" +
-	"\bpriority\x18\t \x01(\tR\bpriority\x12\x12\n" +
+	"\bpriority\x18\t \x01(\bR\bpriority\x12\x12\n" +
 	"\x04tags\x18\n" +
 	" \x03(\tR\x04tags\x122\n" +
 	"\bmetadata\x18\v \x01(\v2\x16.google.protobuf.ValueR\bmetadata\"\x8a\x03\n" +
@@ -674,7 +752,7 @@ const file_payloads_proto_rawDesc = "" +
 	"\bdue_date\x18\b \x01(\tR\adueDate\x12\x19\n" +
 	"\bdue_time\x18\t \x01(\tR\adueTime\x12\x1a\n" +
 	"\bpriority\x18\n" +
-	" \x01(\tR\bpriority\x12\x12\n" +
+	" \x01(\bR\bpriority\x12\x12\n" +
 	"\x04tags\x18\v \x03(\tR\x04tags\x122\n" +
 	"\bmetadata\x18\f \x01(\v2\x16.google.protobuf.ValueR\bmetadata\x12\x1d\n" +
 	"\n" +
@@ -704,7 +782,13 @@ const file_payloads_proto_rawDesc = "" +
 	"created_at\x18\n" +
 	" \x01(\tR\tcreatedAt\x12\x1d\n" +
 	"\n" +
-	"updated_at\x18\v \x01(\tR\tupdatedAtB*Z(github.com/jakenolan/life-sdk/gen;lifev1b\x06proto3"
+	"updated_at\x18\v \x01(\tR\tupdatedAt\"\x8c\x01\n" +
+	"\x18TodoStatusChangedPayload\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x10\n" +
+	"\x03lid\x18\x02 \x01(\tR\x03lid\x12\x19\n" +
+	"\bshelf_id\x18\x03 \x01(\tR\ashelfId\x12\x1b\n" +
+	"\tfile_path\x18\x04 \x01(\tR\bfilePath\x12\x16\n" +
+	"\x06status\x18\x05 \x01(\tR\x06statusB*Z(github.com/jakenolan/life-sdk/gen;lifev1b\x06proto3"
 
 var (
 	file_payloads_proto_rawDescOnce sync.Once
@@ -718,23 +802,24 @@ func file_payloads_proto_rawDescGZIP() []byte {
 	return file_payloads_proto_rawDescData
 }
 
-var file_payloads_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_payloads_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_payloads_proto_goTypes = []any{
-	(*FileChangedPayload)(nil),   // 0: life.v1.FileChangedPayload
-	(*FileDeletedPayload)(nil),   // 1: life.v1.FileDeletedPayload
-	(*TodoDetectedPayload)(nil),  // 2: life.v1.TodoDetectedPayload
-	(*TodoPersistedPayload)(nil), // 3: life.v1.TodoPersistedPayload
-	(*NoteDetectedPayload)(nil),  // 4: life.v1.NoteDetectedPayload
-	(*NotePersistedPayload)(nil), // 5: life.v1.NotePersistedPayload
-	(*structpb.Value)(nil),       // 6: google.protobuf.Value
+	(*FileChangedPayload)(nil),       // 0: life.v1.FileChangedPayload
+	(*FileDeletedPayload)(nil),       // 1: life.v1.FileDeletedPayload
+	(*TodoDetectedPayload)(nil),      // 2: life.v1.TodoDetectedPayload
+	(*TodoPersistedPayload)(nil),     // 3: life.v1.TodoPersistedPayload
+	(*NoteDetectedPayload)(nil),      // 4: life.v1.NoteDetectedPayload
+	(*NotePersistedPayload)(nil),     // 5: life.v1.NotePersistedPayload
+	(*TodoStatusChangedPayload)(nil), // 6: life.v1.TodoStatusChangedPayload
+	(*structpb.Value)(nil),           // 7: google.protobuf.Value
 }
 var file_payloads_proto_depIdxs = []int32{
-	6, // 0: life.v1.TodoDetectedPayload.metadata:type_name -> google.protobuf.Value
-	6, // 1: life.v1.TodoPersistedPayload.metadata:type_name -> google.protobuf.Value
-	6, // 2: life.v1.NoteDetectedPayload.frontmatter:type_name -> google.protobuf.Value
-	6, // 3: life.v1.NoteDetectedPayload.metadata:type_name -> google.protobuf.Value
-	6, // 4: life.v1.NotePersistedPayload.frontmatter:type_name -> google.protobuf.Value
-	6, // 5: life.v1.NotePersistedPayload.metadata:type_name -> google.protobuf.Value
+	7, // 0: life.v1.TodoDetectedPayload.metadata:type_name -> google.protobuf.Value
+	7, // 1: life.v1.TodoPersistedPayload.metadata:type_name -> google.protobuf.Value
+	7, // 2: life.v1.NoteDetectedPayload.frontmatter:type_name -> google.protobuf.Value
+	7, // 3: life.v1.NoteDetectedPayload.metadata:type_name -> google.protobuf.Value
+	7, // 4: life.v1.NotePersistedPayload.frontmatter:type_name -> google.protobuf.Value
+	7, // 5: life.v1.NotePersistedPayload.metadata:type_name -> google.protobuf.Value
 	6, // [6:6] is the sub-list for method output_type
 	6, // [6:6] is the sub-list for method input_type
 	6, // [6:6] is the sub-list for extension type_name
@@ -753,7 +838,7 @@ func file_payloads_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_payloads_proto_rawDesc), len(file_payloads_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

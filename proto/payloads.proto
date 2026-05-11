@@ -44,7 +44,7 @@ message TodoDetectedPayload {
   string status    = 6;
   string due_date  = 7;
   string due_time  = 8;
-  string priority  = 9;
+  bool   priority  = 9;
   repeated string       tags     = 10;
   google.protobuf.Value metadata = 11;
 }
@@ -66,7 +66,7 @@ message TodoPersistedPayload {
   string status    = 7;
   string due_date  = 8;
   string due_time  = 9;
-  string priority  = 10;
+  bool   priority  = 10;
   repeated string       tags       = 11;
   google.protobuf.Value metadata   = 12;
   string                created_at = 13;
@@ -110,4 +110,18 @@ message NotePersistedPayload {
   google.protobuf.Value metadata    = 9;
   string                created_at  = 10;
   string                updated_at  = 11;
+}
+
+// -----------------------------------------------------------------------
+// todo.status_changed
+// -----------------------------------------------------------------------
+
+// Emitted by the todo store after a status update via the IPC TodoStatusUpdate RPC.
+// Consumed by the MarkdownWriter to rewrite the checkbox in the source file.
+message TodoStatusChangedPayload {
+  string id        = 1;
+  string lid       = 2;
+  string shelf_id  = 3;
+  string file_path = 4;
+  string status    = 5;
 }

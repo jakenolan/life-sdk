@@ -1275,6 +1275,546 @@ func (x *ProLoginResponse) GetError() string {
 	return ""
 }
 
+type TodoListRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ShelfId       string                 `protobuf:"bytes,1,opt,name=shelf_id,json=shelfId,proto3" json:"shelf_id,omitempty"` // empty = all active shelves
+	Filter        string                 `protobuf:"bytes,2,opt,name=filter,proto3" json:"filter,omitempty"`                  // "open" (default), "done", "cancelled", "all"
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TodoListRequest) Reset() {
+	*x = TodoListRequest{}
+	mi := &file_ipc_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TodoListRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TodoListRequest) ProtoMessage() {}
+
+func (x *TodoListRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_ipc_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TodoListRequest.ProtoReflect.Descriptor instead.
+func (*TodoListRequest) Descriptor() ([]byte, []int) {
+	return file_ipc_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *TodoListRequest) GetShelfId() string {
+	if x != nil {
+		return x.ShelfId
+	}
+	return ""
+}
+
+func (x *TodoListRequest) GetFilter() string {
+	if x != nil {
+		return x.Filter
+	}
+	return ""
+}
+
+type TodoItem struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Lid           string                 `protobuf:"bytes,2,opt,name=lid,proto3" json:"lid,omitempty"`
+	ShelfId       string                 `protobuf:"bytes,3,opt,name=shelf_id,json=shelfId,proto3" json:"shelf_id,omitempty"`
+	ShelfName     string                 `protobuf:"bytes,4,opt,name=shelf_name,json=shelfName,proto3" json:"shelf_name,omitempty"`
+	ShelfPath     string                 `protobuf:"bytes,5,opt,name=shelf_path,json=shelfPath,proto3" json:"shelf_path,omitempty"`
+	FilePath      string                 `protobuf:"bytes,6,opt,name=file_path,json=filePath,proto3" json:"file_path,omitempty"`
+	Title         string                 `protobuf:"bytes,7,opt,name=title,proto3" json:"title,omitempty"`
+	Status        string                 `protobuf:"bytes,8,opt,name=status,proto3" json:"status,omitempty"`
+	DueDate       string                 `protobuf:"bytes,9,opt,name=due_date,json=dueDate,proto3" json:"due_date,omitempty"`
+	Priority      bool                   `protobuf:"varint,10,opt,name=priority,proto3" json:"priority,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TodoItem) Reset() {
+	*x = TodoItem{}
+	mi := &file_ipc_proto_msgTypes[24]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TodoItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TodoItem) ProtoMessage() {}
+
+func (x *TodoItem) ProtoReflect() protoreflect.Message {
+	mi := &file_ipc_proto_msgTypes[24]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TodoItem.ProtoReflect.Descriptor instead.
+func (*TodoItem) Descriptor() ([]byte, []int) {
+	return file_ipc_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *TodoItem) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *TodoItem) GetLid() string {
+	if x != nil {
+		return x.Lid
+	}
+	return ""
+}
+
+func (x *TodoItem) GetShelfId() string {
+	if x != nil {
+		return x.ShelfId
+	}
+	return ""
+}
+
+func (x *TodoItem) GetShelfName() string {
+	if x != nil {
+		return x.ShelfName
+	}
+	return ""
+}
+
+func (x *TodoItem) GetShelfPath() string {
+	if x != nil {
+		return x.ShelfPath
+	}
+	return ""
+}
+
+func (x *TodoItem) GetFilePath() string {
+	if x != nil {
+		return x.FilePath
+	}
+	return ""
+}
+
+func (x *TodoItem) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *TodoItem) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *TodoItem) GetDueDate() string {
+	if x != nil {
+		return x.DueDate
+	}
+	return ""
+}
+
+func (x *TodoItem) GetPriority() bool {
+	if x != nil {
+		return x.Priority
+	}
+	return false
+}
+
+type TodoListResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Todos         []*TodoItem            `protobuf:"bytes,1,rep,name=todos,proto3" json:"todos,omitempty"`
+	Ok            bool                   `protobuf:"varint,2,opt,name=ok,proto3" json:"ok,omitempty"`
+	Error         string                 `protobuf:"bytes,3,opt,name=error,proto3" json:"error,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TodoListResponse) Reset() {
+	*x = TodoListResponse{}
+	mi := &file_ipc_proto_msgTypes[25]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TodoListResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TodoListResponse) ProtoMessage() {}
+
+func (x *TodoListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_ipc_proto_msgTypes[25]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TodoListResponse.ProtoReflect.Descriptor instead.
+func (*TodoListResponse) Descriptor() ([]byte, []int) {
+	return file_ipc_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *TodoListResponse) GetTodos() []*TodoItem {
+	if x != nil {
+		return x.Todos
+	}
+	return nil
+}
+
+func (x *TodoListResponse) GetOk() bool {
+	if x != nil {
+		return x.Ok
+	}
+	return false
+}
+
+func (x *TodoListResponse) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+type TodoStatusUpdateRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Status        string                 `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TodoStatusUpdateRequest) Reset() {
+	*x = TodoStatusUpdateRequest{}
+	mi := &file_ipc_proto_msgTypes[26]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TodoStatusUpdateRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TodoStatusUpdateRequest) ProtoMessage() {}
+
+func (x *TodoStatusUpdateRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_ipc_proto_msgTypes[26]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TodoStatusUpdateRequest.ProtoReflect.Descriptor instead.
+func (*TodoStatusUpdateRequest) Descriptor() ([]byte, []int) {
+	return file_ipc_proto_rawDescGZIP(), []int{26}
+}
+
+func (x *TodoStatusUpdateRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *TodoStatusUpdateRequest) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+type TodoStatusUpdateResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Ok            bool                   `protobuf:"varint,1,opt,name=ok,proto3" json:"ok,omitempty"`
+	Error         string                 `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TodoStatusUpdateResponse) Reset() {
+	*x = TodoStatusUpdateResponse{}
+	mi := &file_ipc_proto_msgTypes[27]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TodoStatusUpdateResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TodoStatusUpdateResponse) ProtoMessage() {}
+
+func (x *TodoStatusUpdateResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_ipc_proto_msgTypes[27]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TodoStatusUpdateResponse.ProtoReflect.Descriptor instead.
+func (*TodoStatusUpdateResponse) Descriptor() ([]byte, []int) {
+	return file_ipc_proto_rawDescGZIP(), []int{27}
+}
+
+func (x *TodoStatusUpdateResponse) GetOk() bool {
+	if x != nil {
+		return x.Ok
+	}
+	return false
+}
+
+func (x *TodoStatusUpdateResponse) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+type TodoPriorityUpdateRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Priority      bool                   `protobuf:"varint,2,opt,name=priority,proto3" json:"priority,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TodoPriorityUpdateRequest) Reset() {
+	*x = TodoPriorityUpdateRequest{}
+	mi := &file_ipc_proto_msgTypes[28]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TodoPriorityUpdateRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TodoPriorityUpdateRequest) ProtoMessage() {}
+
+func (x *TodoPriorityUpdateRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_ipc_proto_msgTypes[28]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TodoPriorityUpdateRequest.ProtoReflect.Descriptor instead.
+func (*TodoPriorityUpdateRequest) Descriptor() ([]byte, []int) {
+	return file_ipc_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *TodoPriorityUpdateRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *TodoPriorityUpdateRequest) GetPriority() bool {
+	if x != nil {
+		return x.Priority
+	}
+	return false
+}
+
+type TodoPriorityUpdateResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Ok            bool                   `protobuf:"varint,1,opt,name=ok,proto3" json:"ok,omitempty"`
+	Error         string                 `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TodoPriorityUpdateResponse) Reset() {
+	*x = TodoPriorityUpdateResponse{}
+	mi := &file_ipc_proto_msgTypes[29]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TodoPriorityUpdateResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TodoPriorityUpdateResponse) ProtoMessage() {}
+
+func (x *TodoPriorityUpdateResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_ipc_proto_msgTypes[29]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TodoPriorityUpdateResponse.ProtoReflect.Descriptor instead.
+func (*TodoPriorityUpdateResponse) Descriptor() ([]byte, []int) {
+	return file_ipc_proto_rawDescGZIP(), []int{29}
+}
+
+func (x *TodoPriorityUpdateResponse) GetOk() bool {
+	if x != nil {
+		return x.Ok
+	}
+	return false
+}
+
+func (x *TodoPriorityUpdateResponse) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+type TodoSnoozeRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	SnoozeUntil   string                 `protobuf:"bytes,2,opt,name=snooze_until,json=snoozeUntil,proto3" json:"snooze_until,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TodoSnoozeRequest) Reset() {
+	*x = TodoSnoozeRequest{}
+	mi := &file_ipc_proto_msgTypes[30]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TodoSnoozeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TodoSnoozeRequest) ProtoMessage() {}
+
+func (x *TodoSnoozeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_ipc_proto_msgTypes[30]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TodoSnoozeRequest.ProtoReflect.Descriptor instead.
+func (*TodoSnoozeRequest) Descriptor() ([]byte, []int) {
+	return file_ipc_proto_rawDescGZIP(), []int{30}
+}
+
+func (x *TodoSnoozeRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *TodoSnoozeRequest) GetSnoozeUntil() string {
+	if x != nil {
+		return x.SnoozeUntil
+	}
+	return ""
+}
+
+type TodoSnoozeResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Ok            bool                   `protobuf:"varint,1,opt,name=ok,proto3" json:"ok,omitempty"`
+	Error         string                 `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TodoSnoozeResponse) Reset() {
+	*x = TodoSnoozeResponse{}
+	mi := &file_ipc_proto_msgTypes[31]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TodoSnoozeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TodoSnoozeResponse) ProtoMessage() {}
+
+func (x *TodoSnoozeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_ipc_proto_msgTypes[31]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TodoSnoozeResponse.ProtoReflect.Descriptor instead.
+func (*TodoSnoozeResponse) Descriptor() ([]byte, []int) {
+	return file_ipc_proto_rawDescGZIP(), []int{31}
+}
+
+func (x *TodoSnoozeResponse) GetOk() bool {
+	if x != nil {
+		return x.Ok
+	}
+	return false
+}
+
+func (x *TodoSnoozeResponse) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
 var File_ipc_proto protoreflect.FileDescriptor
 
 const file_ipc_proto_rawDesc = "" +
@@ -1362,7 +1902,46 @@ const file_ipc_proto_rawDesc = "" +
 	"\x05token\x18\x01 \x01(\tR\x05token\"8\n" +
 	"\x10ProLoginResponse\x12\x0e\n" +
 	"\x02ok\x18\x01 \x01(\bR\x02ok\x12\x14\n" +
-	"\x05error\x18\x02 \x01(\tR\x05error2\xc0\x06\n" +
+	"\x05error\x18\x02 \x01(\tR\x05error\"D\n" +
+	"\x0fTodoListRequest\x12\x19\n" +
+	"\bshelf_id\x18\x01 \x01(\tR\ashelfId\x12\x16\n" +
+	"\x06filter\x18\x02 \x01(\tR\x06filter\"\x87\x02\n" +
+	"\bTodoItem\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x10\n" +
+	"\x03lid\x18\x02 \x01(\tR\x03lid\x12\x19\n" +
+	"\bshelf_id\x18\x03 \x01(\tR\ashelfId\x12\x1d\n" +
+	"\n" +
+	"shelf_name\x18\x04 \x01(\tR\tshelfName\x12\x1d\n" +
+	"\n" +
+	"shelf_path\x18\x05 \x01(\tR\tshelfPath\x12\x1b\n" +
+	"\tfile_path\x18\x06 \x01(\tR\bfilePath\x12\x14\n" +
+	"\x05title\x18\a \x01(\tR\x05title\x12\x16\n" +
+	"\x06status\x18\b \x01(\tR\x06status\x12\x19\n" +
+	"\bdue_date\x18\t \x01(\tR\adueDate\x12\x1a\n" +
+	"\bpriority\x18\n" +
+	" \x01(\bR\bpriority\"a\n" +
+	"\x10TodoListResponse\x12'\n" +
+	"\x05todos\x18\x01 \x03(\v2\x11.life.v1.TodoItemR\x05todos\x12\x0e\n" +
+	"\x02ok\x18\x02 \x01(\bR\x02ok\x12\x14\n" +
+	"\x05error\x18\x03 \x01(\tR\x05error\"A\n" +
+	"\x17TodoStatusUpdateRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
+	"\x06status\x18\x02 \x01(\tR\x06status\"@\n" +
+	"\x18TodoStatusUpdateResponse\x12\x0e\n" +
+	"\x02ok\x18\x01 \x01(\bR\x02ok\x12\x14\n" +
+	"\x05error\x18\x02 \x01(\tR\x05error\"G\n" +
+	"\x19TodoPriorityUpdateRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1a\n" +
+	"\bpriority\x18\x02 \x01(\bR\bpriority\"B\n" +
+	"\x1aTodoPriorityUpdateResponse\x12\x0e\n" +
+	"\x02ok\x18\x01 \x01(\bR\x02ok\x12\x14\n" +
+	"\x05error\x18\x02 \x01(\tR\x05error\"F\n" +
+	"\x11TodoSnoozeRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12!\n" +
+	"\fsnooze_until\x18\x02 \x01(\tR\vsnoozeUntil\":\n" +
+	"\x12TodoSnoozeResponse\x12\x0e\n" +
+	"\x02ok\x18\x01 \x01(\bR\x02ok\x12\x14\n" +
+	"\x05error\x18\x02 \x01(\tR\x05error2\x80\t\n" +
 	"\vLifeService\x12?\n" +
 	"\bShelfAdd\x12\x18.life.v1.ShelfAddRequest\x1a\x19.life.v1.ShelfAddResponse\x12H\n" +
 	"\vShelfRemove\x12\x1b.life.v1.ShelfRemoveRequest\x1a\x1c.life.v1.ShelfRemoveResponse\x12B\n" +
@@ -1374,7 +1953,12 @@ const file_ipc_proto_rawDesc = "" +
 	"\x06Status\x12\x16.life.v1.StatusRequest\x1a\x17.life.v1.StatusResponse\x12J\n" +
 	"\vServiceLogs\x12\x1b.life.v1.ServiceLogsRequest\x1a\x1c.life.v1.ServiceLogsResponse0\x01\x12B\n" +
 	"\tProStatus\x12\x19.life.v1.ProStatusRequest\x1a\x1a.life.v1.ProStatusResponse\x12?\n" +
-	"\bProLogin\x12\x18.life.v1.ProLoginRequest\x1a\x19.life.v1.ProLoginResponseB*Z(github.com/jakenolan/life-sdk/gen;lifev1b\x06proto3"
+	"\bProLogin\x12\x18.life.v1.ProLoginRequest\x1a\x19.life.v1.ProLoginResponse\x12?\n" +
+	"\bTodoList\x12\x18.life.v1.TodoListRequest\x1a\x19.life.v1.TodoListResponse\x12W\n" +
+	"\x10TodoStatusUpdate\x12 .life.v1.TodoStatusUpdateRequest\x1a!.life.v1.TodoStatusUpdateResponse\x12]\n" +
+	"\x12TodoPriorityUpdate\x12\".life.v1.TodoPriorityUpdateRequest\x1a#.life.v1.TodoPriorityUpdateResponse\x12E\n" +
+	"\n" +
+	"TodoSnooze\x12\x1a.life.v1.TodoSnoozeRequest\x1a\x1b.life.v1.TodoSnoozeResponseB*Z(github.com/jakenolan/life-sdk/gen;lifev1b\x06proto3"
 
 var (
 	file_ipc_proto_rawDescOnce sync.Once
@@ -1388,62 +1972,80 @@ func file_ipc_proto_rawDescGZIP() []byte {
 	return file_ipc_proto_rawDescData
 }
 
-var file_ipc_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
+var file_ipc_proto_msgTypes = make([]protoimpl.MessageInfo, 32)
 var file_ipc_proto_goTypes = []any{
-	(*ShelfAddRequest)(nil),          // 0: life.v1.ShelfAddRequest
-	(*ShelfAddResponse)(nil),         // 1: life.v1.ShelfAddResponse
-	(*ShelfRemoveRequest)(nil),       // 2: life.v1.ShelfRemoveRequest
-	(*ShelfRemoveResponse)(nil),      // 3: life.v1.ShelfRemoveResponse
-	(*ShelfListRequest)(nil),         // 4: life.v1.ShelfListRequest
-	(*ShelfListResponse)(nil),        // 5: life.v1.ShelfListResponse
-	(*ShelfInfo)(nil),                // 6: life.v1.ShelfInfo
-	(*ShelfConfigGetRequest)(nil),    // 7: life.v1.ShelfConfigGetRequest
-	(*ShelfConfigGetResponse)(nil),   // 8: life.v1.ShelfConfigGetResponse
-	(*ShelfConfigSetRequest)(nil),    // 9: life.v1.ShelfConfigSetRequest
-	(*ShelfConfigSetResponse)(nil),   // 10: life.v1.ShelfConfigSetResponse
-	(*LibraryConfigGetRequest)(nil),  // 11: life.v1.LibraryConfigGetRequest
-	(*LibraryConfigGetResponse)(nil), // 12: life.v1.LibraryConfigGetResponse
-	(*LibraryConfigSetRequest)(nil),  // 13: life.v1.LibraryConfigSetRequest
-	(*LibraryConfigSetResponse)(nil), // 14: life.v1.LibraryConfigSetResponse
-	(*StatusRequest)(nil),            // 15: life.v1.StatusRequest
-	(*StatusResponse)(nil),           // 16: life.v1.StatusResponse
-	(*ServiceLogsRequest)(nil),       // 17: life.v1.ServiceLogsRequest
-	(*ServiceLogsResponse)(nil),      // 18: life.v1.ServiceLogsResponse
-	(*ProStatusRequest)(nil),         // 19: life.v1.ProStatusRequest
-	(*ProStatusResponse)(nil),        // 20: life.v1.ProStatusResponse
-	(*ProLoginRequest)(nil),          // 21: life.v1.ProLoginRequest
-	(*ProLoginResponse)(nil),         // 22: life.v1.ProLoginResponse
+	(*ShelfAddRequest)(nil),            // 0: life.v1.ShelfAddRequest
+	(*ShelfAddResponse)(nil),           // 1: life.v1.ShelfAddResponse
+	(*ShelfRemoveRequest)(nil),         // 2: life.v1.ShelfRemoveRequest
+	(*ShelfRemoveResponse)(nil),        // 3: life.v1.ShelfRemoveResponse
+	(*ShelfListRequest)(nil),           // 4: life.v1.ShelfListRequest
+	(*ShelfListResponse)(nil),          // 5: life.v1.ShelfListResponse
+	(*ShelfInfo)(nil),                  // 6: life.v1.ShelfInfo
+	(*ShelfConfigGetRequest)(nil),      // 7: life.v1.ShelfConfigGetRequest
+	(*ShelfConfigGetResponse)(nil),     // 8: life.v1.ShelfConfigGetResponse
+	(*ShelfConfigSetRequest)(nil),      // 9: life.v1.ShelfConfigSetRequest
+	(*ShelfConfigSetResponse)(nil),     // 10: life.v1.ShelfConfigSetResponse
+	(*LibraryConfigGetRequest)(nil),    // 11: life.v1.LibraryConfigGetRequest
+	(*LibraryConfigGetResponse)(nil),   // 12: life.v1.LibraryConfigGetResponse
+	(*LibraryConfigSetRequest)(nil),    // 13: life.v1.LibraryConfigSetRequest
+	(*LibraryConfigSetResponse)(nil),   // 14: life.v1.LibraryConfigSetResponse
+	(*StatusRequest)(nil),              // 15: life.v1.StatusRequest
+	(*StatusResponse)(nil),             // 16: life.v1.StatusResponse
+	(*ServiceLogsRequest)(nil),         // 17: life.v1.ServiceLogsRequest
+	(*ServiceLogsResponse)(nil),        // 18: life.v1.ServiceLogsResponse
+	(*ProStatusRequest)(nil),           // 19: life.v1.ProStatusRequest
+	(*ProStatusResponse)(nil),          // 20: life.v1.ProStatusResponse
+	(*ProLoginRequest)(nil),            // 21: life.v1.ProLoginRequest
+	(*ProLoginResponse)(nil),           // 22: life.v1.ProLoginResponse
+	(*TodoListRequest)(nil),            // 23: life.v1.TodoListRequest
+	(*TodoItem)(nil),                   // 24: life.v1.TodoItem
+	(*TodoListResponse)(nil),           // 25: life.v1.TodoListResponse
+	(*TodoStatusUpdateRequest)(nil),    // 26: life.v1.TodoStatusUpdateRequest
+	(*TodoStatusUpdateResponse)(nil),   // 27: life.v1.TodoStatusUpdateResponse
+	(*TodoPriorityUpdateRequest)(nil),  // 28: life.v1.TodoPriorityUpdateRequest
+	(*TodoPriorityUpdateResponse)(nil), // 29: life.v1.TodoPriorityUpdateResponse
+	(*TodoSnoozeRequest)(nil),          // 30: life.v1.TodoSnoozeRequest
+	(*TodoSnoozeResponse)(nil),         // 31: life.v1.TodoSnoozeResponse
 }
 var file_ipc_proto_depIdxs = []int32{
 	6,  // 0: life.v1.ShelfListResponse.shelves:type_name -> life.v1.ShelfInfo
 	6,  // 1: life.v1.StatusResponse.shelves:type_name -> life.v1.ShelfInfo
-	0,  // 2: life.v1.LifeService.ShelfAdd:input_type -> life.v1.ShelfAddRequest
-	2,  // 3: life.v1.LifeService.ShelfRemove:input_type -> life.v1.ShelfRemoveRequest
-	4,  // 4: life.v1.LifeService.ShelfList:input_type -> life.v1.ShelfListRequest
-	7,  // 5: life.v1.LifeService.ShelfConfigGet:input_type -> life.v1.ShelfConfigGetRequest
-	9,  // 6: life.v1.LifeService.ShelfConfigSet:input_type -> life.v1.ShelfConfigSetRequest
-	11, // 7: life.v1.LifeService.LibraryConfigGet:input_type -> life.v1.LibraryConfigGetRequest
-	13, // 8: life.v1.LifeService.LibraryConfigSet:input_type -> life.v1.LibraryConfigSetRequest
-	15, // 9: life.v1.LifeService.Status:input_type -> life.v1.StatusRequest
-	17, // 10: life.v1.LifeService.ServiceLogs:input_type -> life.v1.ServiceLogsRequest
-	19, // 11: life.v1.LifeService.ProStatus:input_type -> life.v1.ProStatusRequest
-	21, // 12: life.v1.LifeService.ProLogin:input_type -> life.v1.ProLoginRequest
-	1,  // 13: life.v1.LifeService.ShelfAdd:output_type -> life.v1.ShelfAddResponse
-	3,  // 14: life.v1.LifeService.ShelfRemove:output_type -> life.v1.ShelfRemoveResponse
-	5,  // 15: life.v1.LifeService.ShelfList:output_type -> life.v1.ShelfListResponse
-	8,  // 16: life.v1.LifeService.ShelfConfigGet:output_type -> life.v1.ShelfConfigGetResponse
-	10, // 17: life.v1.LifeService.ShelfConfigSet:output_type -> life.v1.ShelfConfigSetResponse
-	12, // 18: life.v1.LifeService.LibraryConfigGet:output_type -> life.v1.LibraryConfigGetResponse
-	14, // 19: life.v1.LifeService.LibraryConfigSet:output_type -> life.v1.LibraryConfigSetResponse
-	16, // 20: life.v1.LifeService.Status:output_type -> life.v1.StatusResponse
-	18, // 21: life.v1.LifeService.ServiceLogs:output_type -> life.v1.ServiceLogsResponse
-	20, // 22: life.v1.LifeService.ProStatus:output_type -> life.v1.ProStatusResponse
-	22, // 23: life.v1.LifeService.ProLogin:output_type -> life.v1.ProLoginResponse
-	13, // [13:24] is the sub-list for method output_type
-	2,  // [2:13] is the sub-list for method input_type
-	2,  // [2:2] is the sub-list for extension type_name
-	2,  // [2:2] is the sub-list for extension extendee
-	0,  // [0:2] is the sub-list for field type_name
+	24, // 2: life.v1.TodoListResponse.todos:type_name -> life.v1.TodoItem
+	0,  // 3: life.v1.LifeService.ShelfAdd:input_type -> life.v1.ShelfAddRequest
+	2,  // 4: life.v1.LifeService.ShelfRemove:input_type -> life.v1.ShelfRemoveRequest
+	4,  // 5: life.v1.LifeService.ShelfList:input_type -> life.v1.ShelfListRequest
+	7,  // 6: life.v1.LifeService.ShelfConfigGet:input_type -> life.v1.ShelfConfigGetRequest
+	9,  // 7: life.v1.LifeService.ShelfConfigSet:input_type -> life.v1.ShelfConfigSetRequest
+	11, // 8: life.v1.LifeService.LibraryConfigGet:input_type -> life.v1.LibraryConfigGetRequest
+	13, // 9: life.v1.LifeService.LibraryConfigSet:input_type -> life.v1.LibraryConfigSetRequest
+	15, // 10: life.v1.LifeService.Status:input_type -> life.v1.StatusRequest
+	17, // 11: life.v1.LifeService.ServiceLogs:input_type -> life.v1.ServiceLogsRequest
+	19, // 12: life.v1.LifeService.ProStatus:input_type -> life.v1.ProStatusRequest
+	21, // 13: life.v1.LifeService.ProLogin:input_type -> life.v1.ProLoginRequest
+	23, // 14: life.v1.LifeService.TodoList:input_type -> life.v1.TodoListRequest
+	26, // 15: life.v1.LifeService.TodoStatusUpdate:input_type -> life.v1.TodoStatusUpdateRequest
+	28, // 16: life.v1.LifeService.TodoPriorityUpdate:input_type -> life.v1.TodoPriorityUpdateRequest
+	30, // 17: life.v1.LifeService.TodoSnooze:input_type -> life.v1.TodoSnoozeRequest
+	1,  // 18: life.v1.LifeService.ShelfAdd:output_type -> life.v1.ShelfAddResponse
+	3,  // 19: life.v1.LifeService.ShelfRemove:output_type -> life.v1.ShelfRemoveResponse
+	5,  // 20: life.v1.LifeService.ShelfList:output_type -> life.v1.ShelfListResponse
+	8,  // 21: life.v1.LifeService.ShelfConfigGet:output_type -> life.v1.ShelfConfigGetResponse
+	10, // 22: life.v1.LifeService.ShelfConfigSet:output_type -> life.v1.ShelfConfigSetResponse
+	12, // 23: life.v1.LifeService.LibraryConfigGet:output_type -> life.v1.LibraryConfigGetResponse
+	14, // 24: life.v1.LifeService.LibraryConfigSet:output_type -> life.v1.LibraryConfigSetResponse
+	16, // 25: life.v1.LifeService.Status:output_type -> life.v1.StatusResponse
+	18, // 26: life.v1.LifeService.ServiceLogs:output_type -> life.v1.ServiceLogsResponse
+	20, // 27: life.v1.LifeService.ProStatus:output_type -> life.v1.ProStatusResponse
+	22, // 28: life.v1.LifeService.ProLogin:output_type -> life.v1.ProLoginResponse
+	25, // 29: life.v1.LifeService.TodoList:output_type -> life.v1.TodoListResponse
+	27, // 30: life.v1.LifeService.TodoStatusUpdate:output_type -> life.v1.TodoStatusUpdateResponse
+	29, // 31: life.v1.LifeService.TodoPriorityUpdate:output_type -> life.v1.TodoPriorityUpdateResponse
+	31, // 32: life.v1.LifeService.TodoSnooze:output_type -> life.v1.TodoSnoozeResponse
+	18, // [18:33] is the sub-list for method output_type
+	3,  // [3:18] is the sub-list for method input_type
+	3,  // [3:3] is the sub-list for extension type_name
+	3,  // [3:3] is the sub-list for extension extendee
+	0,  // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_ipc_proto_init() }
@@ -1457,7 +2059,7 @@ func file_ipc_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_ipc_proto_rawDesc), len(file_ipc_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   23,
+			NumMessages:   32,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

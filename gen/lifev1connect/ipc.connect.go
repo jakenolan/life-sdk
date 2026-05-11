@@ -59,6 +59,16 @@ const (
 	LifeServiceProStatusProcedure = "/life.v1.LifeService/ProStatus"
 	// LifeServiceProLoginProcedure is the fully-qualified name of the LifeService's ProLogin RPC.
 	LifeServiceProLoginProcedure = "/life.v1.LifeService/ProLogin"
+	// LifeServiceTodoListProcedure is the fully-qualified name of the LifeService's TodoList RPC.
+	LifeServiceTodoListProcedure = "/life.v1.LifeService/TodoList"
+	// LifeServiceTodoStatusUpdateProcedure is the fully-qualified name of the LifeService's
+	// TodoStatusUpdate RPC.
+	LifeServiceTodoStatusUpdateProcedure = "/life.v1.LifeService/TodoStatusUpdate"
+	// LifeServiceTodoPriorityUpdateProcedure is the fully-qualified name of the LifeService's
+	// TodoPriorityUpdate RPC.
+	LifeServiceTodoPriorityUpdateProcedure = "/life.v1.LifeService/TodoPriorityUpdate"
+	// LifeServiceTodoSnoozeProcedure is the fully-qualified name of the LifeService's TodoSnooze RPC.
+	LifeServiceTodoSnoozeProcedure = "/life.v1.LifeService/TodoSnooze"
 )
 
 // LifeServiceClient is a client for the life.v1.LifeService service.
@@ -78,6 +88,11 @@ type LifeServiceClient interface {
 	// Pro plan
 	ProStatus(context.Context, *connect.Request[gen.ProStatusRequest]) (*connect.Response[gen.ProStatusResponse], error)
 	ProLogin(context.Context, *connect.Request[gen.ProLoginRequest]) (*connect.Response[gen.ProLoginResponse], error)
+	// Todos
+	TodoList(context.Context, *connect.Request[gen.TodoListRequest]) (*connect.Response[gen.TodoListResponse], error)
+	TodoStatusUpdate(context.Context, *connect.Request[gen.TodoStatusUpdateRequest]) (*connect.Response[gen.TodoStatusUpdateResponse], error)
+	TodoPriorityUpdate(context.Context, *connect.Request[gen.TodoPriorityUpdateRequest]) (*connect.Response[gen.TodoPriorityUpdateResponse], error)
+	TodoSnooze(context.Context, *connect.Request[gen.TodoSnoozeRequest]) (*connect.Response[gen.TodoSnoozeResponse], error)
 }
 
 // NewLifeServiceClient constructs a client for the life.v1.LifeService service. By default, it uses
@@ -157,22 +172,50 @@ func NewLifeServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(lifeServiceMethods.ByName("ProLogin")),
 			connect.WithClientOptions(opts...),
 		),
+		todoList: connect.NewClient[gen.TodoListRequest, gen.TodoListResponse](
+			httpClient,
+			baseURL+LifeServiceTodoListProcedure,
+			connect.WithSchema(lifeServiceMethods.ByName("TodoList")),
+			connect.WithClientOptions(opts...),
+		),
+		todoStatusUpdate: connect.NewClient[gen.TodoStatusUpdateRequest, gen.TodoStatusUpdateResponse](
+			httpClient,
+			baseURL+LifeServiceTodoStatusUpdateProcedure,
+			connect.WithSchema(lifeServiceMethods.ByName("TodoStatusUpdate")),
+			connect.WithClientOptions(opts...),
+		),
+		todoPriorityUpdate: connect.NewClient[gen.TodoPriorityUpdateRequest, gen.TodoPriorityUpdateResponse](
+			httpClient,
+			baseURL+LifeServiceTodoPriorityUpdateProcedure,
+			connect.WithSchema(lifeServiceMethods.ByName("TodoPriorityUpdate")),
+			connect.WithClientOptions(opts...),
+		),
+		todoSnooze: connect.NewClient[gen.TodoSnoozeRequest, gen.TodoSnoozeResponse](
+			httpClient,
+			baseURL+LifeServiceTodoSnoozeProcedure,
+			connect.WithSchema(lifeServiceMethods.ByName("TodoSnooze")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // lifeServiceClient implements LifeServiceClient.
 type lifeServiceClient struct {
-	shelfAdd         *connect.Client[gen.ShelfAddRequest, gen.ShelfAddResponse]
-	shelfRemove      *connect.Client[gen.ShelfRemoveRequest, gen.ShelfRemoveResponse]
-	shelfList        *connect.Client[gen.ShelfListRequest, gen.ShelfListResponse]
-	shelfConfigGet   *connect.Client[gen.ShelfConfigGetRequest, gen.ShelfConfigGetResponse]
-	shelfConfigSet   *connect.Client[gen.ShelfConfigSetRequest, gen.ShelfConfigSetResponse]
-	libraryConfigGet *connect.Client[gen.LibraryConfigGetRequest, gen.LibraryConfigGetResponse]
-	libraryConfigSet *connect.Client[gen.LibraryConfigSetRequest, gen.LibraryConfigSetResponse]
-	status           *connect.Client[gen.StatusRequest, gen.StatusResponse]
-	serviceLogs      *connect.Client[gen.ServiceLogsRequest, gen.ServiceLogsResponse]
-	proStatus        *connect.Client[gen.ProStatusRequest, gen.ProStatusResponse]
-	proLogin         *connect.Client[gen.ProLoginRequest, gen.ProLoginResponse]
+	shelfAdd           *connect.Client[gen.ShelfAddRequest, gen.ShelfAddResponse]
+	shelfRemove        *connect.Client[gen.ShelfRemoveRequest, gen.ShelfRemoveResponse]
+	shelfList          *connect.Client[gen.ShelfListRequest, gen.ShelfListResponse]
+	shelfConfigGet     *connect.Client[gen.ShelfConfigGetRequest, gen.ShelfConfigGetResponse]
+	shelfConfigSet     *connect.Client[gen.ShelfConfigSetRequest, gen.ShelfConfigSetResponse]
+	libraryConfigGet   *connect.Client[gen.LibraryConfigGetRequest, gen.LibraryConfigGetResponse]
+	libraryConfigSet   *connect.Client[gen.LibraryConfigSetRequest, gen.LibraryConfigSetResponse]
+	status             *connect.Client[gen.StatusRequest, gen.StatusResponse]
+	serviceLogs        *connect.Client[gen.ServiceLogsRequest, gen.ServiceLogsResponse]
+	proStatus          *connect.Client[gen.ProStatusRequest, gen.ProStatusResponse]
+	proLogin           *connect.Client[gen.ProLoginRequest, gen.ProLoginResponse]
+	todoList           *connect.Client[gen.TodoListRequest, gen.TodoListResponse]
+	todoStatusUpdate   *connect.Client[gen.TodoStatusUpdateRequest, gen.TodoStatusUpdateResponse]
+	todoPriorityUpdate *connect.Client[gen.TodoPriorityUpdateRequest, gen.TodoPriorityUpdateResponse]
+	todoSnooze         *connect.Client[gen.TodoSnoozeRequest, gen.TodoSnoozeResponse]
 }
 
 // ShelfAdd calls life.v1.LifeService.ShelfAdd.
@@ -230,6 +273,26 @@ func (c *lifeServiceClient) ProLogin(ctx context.Context, req *connect.Request[g
 	return c.proLogin.CallUnary(ctx, req)
 }
 
+// TodoList calls life.v1.LifeService.TodoList.
+func (c *lifeServiceClient) TodoList(ctx context.Context, req *connect.Request[gen.TodoListRequest]) (*connect.Response[gen.TodoListResponse], error) {
+	return c.todoList.CallUnary(ctx, req)
+}
+
+// TodoStatusUpdate calls life.v1.LifeService.TodoStatusUpdate.
+func (c *lifeServiceClient) TodoStatusUpdate(ctx context.Context, req *connect.Request[gen.TodoStatusUpdateRequest]) (*connect.Response[gen.TodoStatusUpdateResponse], error) {
+	return c.todoStatusUpdate.CallUnary(ctx, req)
+}
+
+// TodoPriorityUpdate calls life.v1.LifeService.TodoPriorityUpdate.
+func (c *lifeServiceClient) TodoPriorityUpdate(ctx context.Context, req *connect.Request[gen.TodoPriorityUpdateRequest]) (*connect.Response[gen.TodoPriorityUpdateResponse], error) {
+	return c.todoPriorityUpdate.CallUnary(ctx, req)
+}
+
+// TodoSnooze calls life.v1.LifeService.TodoSnooze.
+func (c *lifeServiceClient) TodoSnooze(ctx context.Context, req *connect.Request[gen.TodoSnoozeRequest]) (*connect.Response[gen.TodoSnoozeResponse], error) {
+	return c.todoSnooze.CallUnary(ctx, req)
+}
+
 // LifeServiceHandler is an implementation of the life.v1.LifeService service.
 type LifeServiceHandler interface {
 	// Shelf management
@@ -247,6 +310,11 @@ type LifeServiceHandler interface {
 	// Pro plan
 	ProStatus(context.Context, *connect.Request[gen.ProStatusRequest]) (*connect.Response[gen.ProStatusResponse], error)
 	ProLogin(context.Context, *connect.Request[gen.ProLoginRequest]) (*connect.Response[gen.ProLoginResponse], error)
+	// Todos
+	TodoList(context.Context, *connect.Request[gen.TodoListRequest]) (*connect.Response[gen.TodoListResponse], error)
+	TodoStatusUpdate(context.Context, *connect.Request[gen.TodoStatusUpdateRequest]) (*connect.Response[gen.TodoStatusUpdateResponse], error)
+	TodoPriorityUpdate(context.Context, *connect.Request[gen.TodoPriorityUpdateRequest]) (*connect.Response[gen.TodoPriorityUpdateResponse], error)
+	TodoSnooze(context.Context, *connect.Request[gen.TodoSnoozeRequest]) (*connect.Response[gen.TodoSnoozeResponse], error)
 }
 
 // NewLifeServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -322,6 +390,30 @@ func NewLifeServiceHandler(svc LifeServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(lifeServiceMethods.ByName("ProLogin")),
 		connect.WithHandlerOptions(opts...),
 	)
+	lifeServiceTodoListHandler := connect.NewUnaryHandler(
+		LifeServiceTodoListProcedure,
+		svc.TodoList,
+		connect.WithSchema(lifeServiceMethods.ByName("TodoList")),
+		connect.WithHandlerOptions(opts...),
+	)
+	lifeServiceTodoStatusUpdateHandler := connect.NewUnaryHandler(
+		LifeServiceTodoStatusUpdateProcedure,
+		svc.TodoStatusUpdate,
+		connect.WithSchema(lifeServiceMethods.ByName("TodoStatusUpdate")),
+		connect.WithHandlerOptions(opts...),
+	)
+	lifeServiceTodoPriorityUpdateHandler := connect.NewUnaryHandler(
+		LifeServiceTodoPriorityUpdateProcedure,
+		svc.TodoPriorityUpdate,
+		connect.WithSchema(lifeServiceMethods.ByName("TodoPriorityUpdate")),
+		connect.WithHandlerOptions(opts...),
+	)
+	lifeServiceTodoSnoozeHandler := connect.NewUnaryHandler(
+		LifeServiceTodoSnoozeProcedure,
+		svc.TodoSnooze,
+		connect.WithSchema(lifeServiceMethods.ByName("TodoSnooze")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/life.v1.LifeService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case LifeServiceShelfAddProcedure:
@@ -346,6 +438,14 @@ func NewLifeServiceHandler(svc LifeServiceHandler, opts ...connect.HandlerOption
 			lifeServiceProStatusHandler.ServeHTTP(w, r)
 		case LifeServiceProLoginProcedure:
 			lifeServiceProLoginHandler.ServeHTTP(w, r)
+		case LifeServiceTodoListProcedure:
+			lifeServiceTodoListHandler.ServeHTTP(w, r)
+		case LifeServiceTodoStatusUpdateProcedure:
+			lifeServiceTodoStatusUpdateHandler.ServeHTTP(w, r)
+		case LifeServiceTodoPriorityUpdateProcedure:
+			lifeServiceTodoPriorityUpdateHandler.ServeHTTP(w, r)
+		case LifeServiceTodoSnoozeProcedure:
+			lifeServiceTodoSnoozeHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -397,4 +497,20 @@ func (UnimplementedLifeServiceHandler) ProStatus(context.Context, *connect.Reque
 
 func (UnimplementedLifeServiceHandler) ProLogin(context.Context, *connect.Request[gen.ProLoginRequest]) (*connect.Response[gen.ProLoginResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("life.v1.LifeService.ProLogin is not implemented"))
+}
+
+func (UnimplementedLifeServiceHandler) TodoList(context.Context, *connect.Request[gen.TodoListRequest]) (*connect.Response[gen.TodoListResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("life.v1.LifeService.TodoList is not implemented"))
+}
+
+func (UnimplementedLifeServiceHandler) TodoStatusUpdate(context.Context, *connect.Request[gen.TodoStatusUpdateRequest]) (*connect.Response[gen.TodoStatusUpdateResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("life.v1.LifeService.TodoStatusUpdate is not implemented"))
+}
+
+func (UnimplementedLifeServiceHandler) TodoPriorityUpdate(context.Context, *connect.Request[gen.TodoPriorityUpdateRequest]) (*connect.Response[gen.TodoPriorityUpdateResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("life.v1.LifeService.TodoPriorityUpdate is not implemented"))
+}
+
+func (UnimplementedLifeServiceHandler) TodoSnooze(context.Context, *connect.Request[gen.TodoSnoozeRequest]) (*connect.Response[gen.TodoSnoozeResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("life.v1.LifeService.TodoSnooze is not implemented"))
 }

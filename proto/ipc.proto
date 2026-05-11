@@ -22,6 +22,12 @@ service LifeService {
   // Pro plan
   rpc ProStatus (ProStatusRequest) returns (ProStatusResponse);
   rpc ProLogin  (ProLoginRequest)  returns (ProLoginResponse);
+
+  // Todos
+  rpc TodoList           (TodoListRequest)           returns (TodoListResponse);
+  rpc TodoStatusUpdate   (TodoStatusUpdateRequest)   returns (TodoStatusUpdateResponse);
+  rpc TodoPriorityUpdate (TodoPriorityUpdateRequest) returns (TodoPriorityUpdateResponse);
+  rpc TodoSnooze         (TodoSnoozeRequest)         returns (TodoSnoozeResponse);
 }
 
 // -----------------------------------------------------------------------
@@ -129,3 +135,40 @@ message ProStatusResponse {
 
 message ProLoginRequest  { string token = 1; }
 message ProLoginResponse { bool ok = 1; string error = 2; }
+
+// -----------------------------------------------------------------------
+// Todos
+// -----------------------------------------------------------------------
+
+message TodoListRequest {
+  string shelf_id = 1;  // empty = all active shelves
+  string filter   = 2;  // "open" (default), "done", "cancelled", "all"
+}
+
+message TodoItem {
+  string id         = 1;
+  string lid        = 2;
+  string shelf_id   = 3;
+  string shelf_name = 4;
+  string shelf_path = 5;
+  string file_path  = 6;
+  string title      = 7;
+  string status     = 8;
+  string due_date   = 9;
+  bool   priority   = 10;
+}
+
+message TodoListResponse {
+  repeated TodoItem todos = 1;
+  bool   ok    = 2;
+  string error = 3;
+}
+
+message TodoStatusUpdateRequest  { string id = 1; string status = 2; }
+message TodoStatusUpdateResponse { bool ok = 1; string error = 2; }
+
+message TodoPriorityUpdateRequest  { string id = 1; bool priority = 2; }
+message TodoPriorityUpdateResponse { bool ok = 1; string error = 2; }
+
+message TodoSnoozeRequest  { string id = 1; string snooze_until = 2; }
+message TodoSnoozeResponse { bool ok = 1; string error = 2; }
